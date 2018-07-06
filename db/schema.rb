@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,29 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140730031624) do
+ActiveRecord::Schema.define(version: 2014_07_30_031624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "games", force: true do |t|
+  create_table "games", id: :serial, force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "last_roll"
-    t.integer  "available_dice"
-    t.integer  "player_iterator"
+    t.text "last_roll"
+    t.integer "available_dice"
+    t.integer "player_iterator"
   end
 
-  create_table "players", force: true do |t|
-    t.string  "player_name"
+  create_table "players", id: :serial, force: :cascade do |t|
+    t.string "player_name"
     t.integer "current_score"
     t.integer "total_score"
     t.integer "game_id"
+    t.index ["game_id"], name: "index_players_on_game_id"
   end
 
-  add_index "players", ["game_id"], name: "index_players_on_game_id", using: :btree
-
-  create_table "users", force: true do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "username"
     t.string "email"
     t.string "password_digest"
